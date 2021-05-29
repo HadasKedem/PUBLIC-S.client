@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { HeaderComponent } from './header/header.component';
 import { FieldsComponent } from './fields/fields.component';
+import { NewsComponent } from './news/news.component';
+import { ArticleComponent } from './article/article.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { FieldsComponent } from './fields/fields.component';
     AppComponent,
     ToolbarComponent,
     HeaderComponent,
-    FieldsComponent
+    FieldsComponent,
+    NewsComponent,
+    ArticleComponent
   ],
   imports: [
     BrowserModule,

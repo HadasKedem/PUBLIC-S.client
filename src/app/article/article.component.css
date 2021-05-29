@@ -1,0 +1,12 @@
+/*.tdImage{*/
+/*  width: 25vw !important;*/
+/*  height: 10vh;*/
+/*  overflow: hidden;*/
+/*  object-fit: cover;*/
+/*}*/
+
+.image{
+  width: 35vw !important;
+  height: 40vh;
+  object-fit: fill;
+}

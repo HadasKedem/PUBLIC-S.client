@@ -1,0 +1,23 @@
+<div class="newsBody">
+  <mat-grid-list cols="3" rowHeight="1:1" class="gridList">
+    <mat-grid-tile colspan="2" class="articles">
+<app-article></app-article>
+
+    </mat-grid-tile>
+    <mat-divider [vertical]="true"></mat-divider>
+
+    <mat-grid-tile colspan="1" class="updates">
+      <table class="tableUpdates">
+        <tbody>
+      <tr *ngFor="let update of updates; ">
+        <td>
+        <p class="updateTitle">{{update.title}}</p>
+        <p class="updateContent">{{update.content}}</p>
+        <hr>
+        </td>
+      </tr>
+        </tbody>
+      </table>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

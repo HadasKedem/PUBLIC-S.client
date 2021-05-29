@@ -1,0 +1,22 @@
+.articles{
+}
+
+.updates{
+  width: 35vw !important;
+}
+
+.newsBody{
+ margin: 0 8vw;
+}
+.tableUpdates{
+  width: 20vw !important;
+
+}
+
+.updateTitle{
+  font-weight: bold;
+  font-family: "Times New Roman";
+}
+.updateContent{
+  font-family: "Times New Roman";
+}
