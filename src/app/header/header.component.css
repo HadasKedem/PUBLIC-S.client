@@ -10,3 +10,10 @@
 .PUBLIC{
   font-size: 4em;
 }
+
+.seperator{
+
+  margin-left: 2vw;
+  margin-right: 2vw;
+  background: #b3b3b3;
+}

@@ -1,0 +1,26 @@
+.tabs{
+  margin: 0 16vw  ;
+}
+
+/* Styles for tab labels */
+.mat-tab-label {
+  min-width: 2vw !important;
+  padding: 1vw;
+  background-color: transparent;
+  color: #333333;
+  font-weight: 700;
+}
+
+/* Styles for the active tab label */
+.mat-tab-label.mat-tab-label-active {
+  min-width: 2vw !important;
+  padding: 1vw ;
+  background-color: white;
+  color: black;
+  font-weight: 700;
+}
+
+/* Styles for the ink bar */
+.mat-ink-bar {
+  background-color: black;
+}
