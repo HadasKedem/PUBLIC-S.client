@@ -1,8 +1,12 @@
 .articles{
+  width: 10vw !important;
+  vertical-align: top !important;
+
 }
 
 .updates{
   width: 35vw !important;
+  vertical-align: top !important;
 }
 
 .newsBody{
@@ -10,7 +14,7 @@
 }
 .tableUpdates{
   width: 20vw !important;
-
+  vertical-align: top !important;
 }
 
 .updateTitle{
