@@ -4,11 +4,12 @@
 }
 
 .gridList{
-  margin-top: 1em !important;
+  margin-top: 0em !important;
 }
 
 .PUBLIC{
-  font-size: 4em;
+  font-size: 6vw;
+  color: black;
 }
 
 .seperator{
