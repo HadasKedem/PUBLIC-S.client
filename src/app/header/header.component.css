@@ -4,7 +4,7 @@
 }
 
 .gridList{
-  margin-top: 0em !important;
+  margin-top: 1.5vh !important;
 }
 
 .PUBLIC{
@@ -17,4 +17,9 @@
   margin-left: 2vw;
   margin-right: 2vw;
   background: #b3b3b3;
+}
+
+.widget{
+  padding-top: 0.5vh !important;
+  font-family: 'Times New Roman' !important;
 }
