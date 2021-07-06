@@ -5,6 +5,7 @@ import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
+
 import { AngularWeatherWidgetModule } from 'angular2-weather-widget';
 
 
@@ -57,7 +58,7 @@ import { ArticlePageComponent } from './article-page/article-page.component';
     AvatarModule,
     AngularWeatherWidgetModule,
     CommonModule
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
