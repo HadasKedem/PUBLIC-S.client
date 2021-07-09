@@ -1,8 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+
+
 import { CommonModule } from '@angular/common';
 
 
@@ -30,6 +33,9 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { NewArticlePageComponent } from './new-article-page/new-article-page.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
+// import {  PieChartComponent } from 'angular-d3-charts';
+
+
 
 
 @NgModule({
@@ -45,21 +51,27 @@ import { ArticlePageComponent } from './article-page/article-page.component';
     RegisterPageComponent,
     AdminPageComponent,
     NewArticlePageComponent,
-    ArticlePageComponent
-  ],
+    ArticlePageComponent,
+    // PieChartComponent
+      ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     DemoMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule,
+    // ChartsModule,
     HttpClientModule,
     AvatarModule,
     AngularWeatherWidgetModule,
-    CommonModule
+    CommonModule,
+    HttpModule,
+    BrowserAnimationsModule
     ],
   providers: [],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

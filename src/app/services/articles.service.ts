@@ -10,6 +10,8 @@ export class ArticlesService {
   constructor(private http:Http) { }
 
   getArticles(){
-    return this.http.get('http://localhost:8080').pipe(map(response => response.json()));
+    var t = this.http.get('http://localhost:8080/Article/getAll').pipe(map(response => response.json()))
+    console.log(t)
+    return t;
   }
 }
