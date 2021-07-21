@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { User } from '../models/User.model';
+import { registerService } from './services/registerService';
+import { loginService } from '../login-page/services/loginService.service';
+import { Router } from '@angular/router';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -10,7 +14,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
@@ -18,16 +21,27 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegisterPageComponent  {
 
-  constructor() { }
+  public register = this.formBuilder.group({
+    email:'',
+    password:'',
+    firstName:'',
+    lastName:'',
+    isAdmin: false,
+    isWriter: false,
+  });
 
+  constructor(private router: Router, private formBuilder: FormBuilder, private registerservice: registerService, private loginService: loginService) { }
 
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
 
-  
-  userFormControl = new FormControl('', [
+  firstNameFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  lastNameFormControl = new FormControl('', [
     Validators.required
   ]);
 
@@ -36,4 +50,14 @@ export class RegisterPageComponent  {
     Validators.minLength(6)
   ]);
   matcher = new MyErrorStateMatcher();
+
+  onSubmit(): void {
+    let register:User = this.register.value as User;
+    if(register.email !="" && register.password!=""){
+      this.registerservice.SaveRegistration(register, "").subscribe();
+      //login the current user
+      this.router.navigate(['/login']);
+      this.loginService.loginUser({"username": register.email, "password": register.password}, "")
+    }
+  };
 }
