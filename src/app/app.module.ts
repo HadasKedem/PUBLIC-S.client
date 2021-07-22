@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 
 import { CommonModule } from '@angular/common';
@@ -19,6 +20,8 @@ import { AppComponent } from './app.component';
 import {DemoMaterialModule} from './material-module';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { AvatarModule } from 'ngx-avatar';
+import { GoogleMapsModule } from '@angular/google-maps'
+
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,7 +39,9 @@ import { ArticlePageComponent } from './article-page/article-page.component';
 // import {  PieChartComponent } from 'angular-d3-charts';
 
 
-
+import { LogoutPageComponent } from './logout-page/logout-page.component';
+import { MapComponent } from './admin-page/map/map.component';
+const config: SocketIoConfig = { url: 'http://localhost:14001', options: {} };
 
 @NgModule({
   declarations: [
@@ -53,7 +58,9 @@ import { ArticlePageComponent } from './article-page/article-page.component';
     NewArticlePageComponent,
     ArticlePageComponent,
     // PieChartComponent
-      ],
+    LogoutPageComponent,
+    MapComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -66,7 +73,9 @@ import { ArticlePageComponent } from './article-page/article-page.component';
     AngularWeatherWidgetModule,
     CommonModule,
     HttpModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    GoogleMapsModule,
+    SocketIoModule.forRoot(config)
     ],
   providers: [],
   schemas: [

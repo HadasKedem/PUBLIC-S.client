@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticlesService} from '../services/articles.service';
+import {Article} from '../models/Article';
 
 @Component({
   selector: 'app-new-article-page',
@@ -7,8 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewArticlePageComponent implements OnInit {
   selected = 'option2';
+  fields = [ "Arts", "Opinions","Gossip", "Health", "Economics", "Science", "World", "Sports", "Tech", "Politics"]
 
-  constructor() { }
+  title: String ="";
+  subTitle: String ="";
+  content: String = "";
+  writer: String ="";
+  field: String="";
+  imageUrl: String="";
+
+  constructor(private articleService:ArticlesService) { }
+
+  addArticle(){
+    var newArticle = {
+        title: this.title,
+        subTitle :this.subTitle,
+        content: this.content,
+        writer: this.writer,
+        field: this.field,
+        imageUrl: this.imageUrl,
+    }
+    console.log(newArticle)
+    this.articleService.addArticle(newArticle);
+}
+
 
   ngOnInit(): void {
   }

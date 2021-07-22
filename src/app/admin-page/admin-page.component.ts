@@ -3,6 +3,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import * as d3 from 'd3';
+import { ArticlesService} from '../services/articles.service';
+
 
 
 export interface UserData {
@@ -31,11 +33,7 @@ const NAMES: string[] = [
 export class AdminPageComponent implements OnInit {
 
   private data = [
-    {"Framework": "Vue", "Stars": "166443", "Released": "2014"},
-    {"Framework": "React", "Stars": "150793", "Released": "2013"},
-    {"Framework": "Angular", "Stars": "62342", "Released": "2016"},
-    {"Framework": "Backbone", "Stars": "27647", "Released": "2010"},
-    {"Framework": "Ember", "Stars": "21471", "Released": "2011"},
+    {"_id": "none", "count": "1"}
   ];
   private svg: any;
   private margin = 20;
@@ -45,6 +43,12 @@ export class AdminPageComponent implements OnInit {
   private radius = Math.min(this.width, this.height) / 2 - this.margin;
   private colors: any;
  
+
+  constructor(private articleService:ArticlesService) {
+
+    // Assign the data to the data source for the table to render
+    this.dataSource = new MatTableDataSource(this.users);
+  }
   private createSvg(): void {
     this.svg = d3.select("figure#pie")
     .append("svg")
@@ -59,14 +63,14 @@ export class AdminPageComponent implements OnInit {
 
 private createColors(): void {
   this.colors = d3.scaleOrdinal()
-  .domain(this.data.map(d => d.Stars.toString()))
+  .domain(this.data.map(d => d.count.toString()))
   .range(["#c7d3ec", "#a5b8db", "#879cc4", "#677795", "#5a6782"]);
 }
 
 
 private drawChart(): void {
   // Compute the position of each group on the pie:
-  const pie = d3.pie<any>().value((d: any) => Number(d.Stars));
+  const pie = d3.pie<any>().value((d: any) => Number(d.count));
 
   // Build the pie chart
   this.svg
@@ -92,16 +96,24 @@ private drawChart(): void {
   .data(pie(this.data))
   .enter()
   .append('text')
-  .text((d: { data: { Framework: any; }; }) => d.data.Framework)
+  .text((d: { data: { _id: any; }; }) => d.data._id)
   .attr("transform", (d: d3.DefaultArcObject) => "translate(" + labelLocation.centroid(d) + ")")
   .style("text-anchor", "middle")
   .style("font-size", 15);
 }
 
-  ngOnInit(): void {
-    this.createSvg();
-    this.createColors();
-    this.drawChart();
+   async ngOnInit() {
+   await this.articleService.getArticlesByField().subscribe(articleObject => {
+      if (articleObject) {
+        console.log(articleObject)
+        this.data = articleObject;
+        // await this.articleService.getWriter(articleObject.)
+        this.createSvg();
+        this.createColors();
+        this.drawChart();
+      };
+  })
+ 
 }
 
   displayedColumns: string[] = ['id', 'name', 'email','writer', 'admin', 'delete'];
@@ -115,14 +127,6 @@ private drawChart(): void {
 
   private users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
-  constructor() {
-    // monkeyPatchChartJsTooltip();
-    // monkeyPatchChartJsLegend();
-    // Create 100 users
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(this.users);
-  }
 
   onClickedDelete(id: string){
     for(let i = 0; i < this.users.length; ++i){

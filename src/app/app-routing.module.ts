@@ -16,8 +16,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterPageComponent},
   { path: 'admin', component: AdminPageComponent},
   { path: 'newarticle', component: NewArticlePageComponent},
-  { path: 'article', component:  ArticlePageComponent},
-  // { path: 'article/:id', component:  ArticlePageComponent},
+  // { path: 'article', component:  ArticlePageComponent},
+  { path: 'article/:_id', component:  ArticlePageComponent},
 
 
 

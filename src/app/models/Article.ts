@@ -1,5 +1,5 @@
 export class Article{
-    ID: String ="";
+    _id?: String ;
     title: String ="";
     subTitle: String ="";
     content: String = "";
@@ -7,3 +7,4 @@ export class Article{
     field: String="";
     imageUrl: String="";
 }
+
