@@ -29,6 +29,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { NewArticlePageComponent } from './new-article-page/new-article-page.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
+import { LogoutPageComponent } from './logout-page/logout-page.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ArticlePageComponent } from './article-page/article-page.component';
     RegisterPageComponent,
     AdminPageComponent,
     NewArticlePageComponent,
-    ArticlePageComponent
+    ArticlePageComponent,
+    LogoutPageComponent
   ],
   imports: [
     BrowserModule,

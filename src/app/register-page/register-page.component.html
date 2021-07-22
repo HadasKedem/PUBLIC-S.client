@@ -1,8 +1,8 @@
-<form class="example-form center">
+<form class="example-form center" [formGroup]="register" (ngSubmit)="onSubmit()">
     <br/>
     <mat-form-field class="example-full-width" appearance="outline">
       <mat-label>Email</mat-label>
-      <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+      <input type="email" matInput [formControl]="emailFormControl" formControlName="email" [errorStateMatcher]="matcher"
              placeholder="Ex. pat@example.com">
       <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
         Please enter a valid email address
@@ -12,18 +12,27 @@
       </mat-error>
     </mat-form-field>
     <br/>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>first name</mat-label>
+      <input type="text" matInput [formControl]="firstNameFormControl" formControlName="firstName" [errorStateMatcher]="matcher"
+             placeholder="Ex. Dror">
+      <mat-error *ngIf="firstNameFormControl.hasError('required')">
+        first name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br/>
     <mat-form-field appearance="outline" class="example-full-width">
-        <mat-label>User name</mat-label>
-        <input   type="text" matInput [formControl]="userFormControl" [errorStateMatcher]="matcher"
-               placeholder="shimon">
-        <mat-error *ngIf="emailFormControl.hasError('required')">
-          User name is <strong>required</strong>
+        <mat-label>last name</mat-label>
+        <input   type="text" matInput [formControl]="lastNameFormControl" formControlName="lastName" [errorStateMatcher]="matcher"
+               placeholder="Picherski">
+        <mat-error *ngIf="lastNameFormControl.hasError('required')">
+          last name is <strong>required</strong>
         </mat-error>
-      </mat-form-field>
-      <br/>
-      <mat-form-field class="example-full-width" appearance="outline">
+    </mat-form-field>
+    <br/>
+    <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Password</mat-label>
-        <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+        <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher" formControlName="password"
                placeholder="Aa123456">
         
         <mat-error *ngIf="passwordFormControl.hasError('minLength') && !emailFormControl.hasError('required')">
@@ -32,10 +41,10 @@
         <mat-error *ngIf="passwordFormControl.hasError('required')">
           Password is <strong>required</strong>
         </mat-error>
-      </mat-form-field>
-      <br/>
+    </mat-form-field>
+    <br/>
       
-  <button mat-raised-button   class="buttoncolor" >
+  <button mat-raised-button class="buttoncolor" >
     SUBMIT
   </button>
   </form>

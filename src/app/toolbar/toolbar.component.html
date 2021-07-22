@@ -20,10 +20,14 @@
   <button mat-button routerLink="admin" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     admin
   </button>
-  <button mat-button routerLink="login" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+  <button *ngIf="!(loginService.isLoggedIn | async)" mat-button routerLink="login" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     login
   </button>
-  <button mat-icon-button routerLink="register" class="example-icon" aria-label="Example icon-button with share icon">
+  <button *ngIf="loginService.isLoggedIn | async" mat-button (click)="onClickedLogOut()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    logout
+  </button>
+  <button *ngIf="!(loginService.isLoggedIn | async)" mat-icon-button routerLink="register" class="example-icon" aria-label="Example icon-button with share icon">
     register
   </button>
+  <div *ngIf="loginService.isLoggedIn | async"> {{loginService.userName | async}} שלום</div>
 </mat-toolbar>

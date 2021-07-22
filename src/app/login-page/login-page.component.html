@@ -1,17 +1,17 @@
-<form class="example-form center">
+<form class="example-form center"  [formGroup]="login" (ngSubmit)="onSubmit()">
     <br/>
     <mat-form-field appearance="outline" class="example-full-width">
-        <mat-label>User name</mat-label>
-        <input   type="text" matInput [formControl]="userFormControl" [errorStateMatcher]="matcher"
-               placeholder="shimon">
+        <mat-label>your email</mat-label>
+        <input   type="email" matInput [formControl]="emailFormControl" formControlName="username" [errorStateMatcher]="matcher"
+               placeholder="pacher@gmail.com">
         <mat-error *ngIf="emailFormControl.hasError('required')">
-          User name is <strong>required</strong>
+          email is <strong>required</strong>
         </mat-error>
       </mat-form-field>
       <br/>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Password</mat-label>
-        <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+        <input type="password" matInput [formControl]="passwordFormControl" formControlName="password" [errorStateMatcher]="matcher"
                placeholder="Aa123456">
         
         <mat-error *ngIf="passwordFormControl.hasError('minLength') && !emailFormControl.hasError('required')">
