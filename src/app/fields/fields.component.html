@@ -1,5 +1,8 @@
-<mat-tab-group class="tabs">
-  <mat-tab label="Politics"> Politics</mat-tab>
+<table>
+  <th>
+    <mat-tab-group class="tabs" (selectedTabChange)="chooseField($event)">
+    <mat-tab *ngFor="let f of fields" label="{{f}}"  >{{f}}</mat-tab> 
+  <!-- <mat-tab label="Politics" (click)=chooseField(Politics)> Politics</mat-tab>
   <mat-tab label="Tech"> Tech </mat-tab>
   <mat-tab label="Sports"> Sports </mat-tab>
   <mat-tab label="World">World  </mat-tab>
@@ -8,6 +11,22 @@
   <mat-tab label="Health"> Health </mat-tab>
   <mat-tab label="Gossip">  Gossip</mat-tab>
   <mat-tab label="Opinions"> Opinions </mat-tab>
-  <mat-tab label="Arts">Arts  </mat-tab>
+  <mat-tab label="Arts">Arts  </mat-tab> -->
 </mat-tab-group>
+  </th>
+  <th>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" >
+  <mat-icon>search</mat-icon>
+</button>
+</th>
+<th>
+<form class="example-form" >
+  <mat-form-field >
+    <input matInput value="search">
+  </mat-form-field>
+</form>
+
+  </th>
+</table>
+
 

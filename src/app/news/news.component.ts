@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Article } from '../models/Article';
 
 @Component({
   selector: 'app-news',
@@ -12,6 +13,12 @@ export class NewsComponent implements OnInit {
     { title: 'climate', content: 'is important' },
     { title: 'hadas', content: 'is the queen of the world' },
   ];
+
+  @Input() searchQ!: String;
+  @Output() searchQChange = new EventEmitter();
+
+  @Input() articles: Article[] | [] = [] ;
+  @Output() articleChange = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
