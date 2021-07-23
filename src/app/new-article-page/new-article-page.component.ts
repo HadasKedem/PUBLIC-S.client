@@ -30,7 +30,8 @@ export class NewArticlePageComponent implements OnInit {
         imageUrl: this.imageUrl,
     }
     console.log(newArticle)
-    this.articleService.addArticle(newArticle);
+    var t = this.articleService.addArticle(newArticle);
+    console.log(t)
 }
 
 

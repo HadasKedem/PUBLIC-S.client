@@ -43,28 +43,29 @@ import { EMPTY, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class BreakingNewsService {
-  private socket$!: WebSocketSubject<any>;
-  private messagesSubject$ = new Subject();
-  public messages$ = this.messagesSubject$.pipe( catchError(e => { throw e }));
+  // private socket$!: WebSocketSubject<any>;
+  // private messagesSubject$ = new Subject();
+  // public messages$ = this.messagesSubject$.pipe( catchError(e => { throw e }));
   
-  public connect(): void {
+  // public connect(): void {
   
-    if (!this.socket$ || this.socket$.closed) {
-      this.socket$ = this.getNewWebSocket();
-      const messages = this.socket$.pipe(
-        tap({
-          error: error => console.log(error),
-        }), catchError(_ => EMPTY));
-      this.messagesSubject$.next(messages);
-      console.log(messages)
-    }
-  }
+  //   if (!this.socket$ || this.socket$.closed) {
+  //     this.socket$ = this.getNewWebSocket();
+  //     const messages = this.socket$.pipe(
+  //       tap({
+  //         error: error => console.log(error),
+  //       }), catchError(_ => EMPTY));
+  //     this.messagesSubject$.next(messages);
+  //     console.log(messages)
+  //   }
+  // }
   
-  private getNewWebSocket() {
-    return webSocket('ws://localhost:14001');
+  // private getNewWebSocket() {
+  //   return webSocket('ws://localhost:14001');
+  // }
+  // sendMessage(msg: any) {
+  //   this.socket$.next(msg);
+  // }
+  // close() {
+  //   this.socket$.complete(); }
   }
-  sendMessage(msg: any) {
-    this.socket$.next(msg);
-  }
-  close() {
-    this.socket$.complete(); }}

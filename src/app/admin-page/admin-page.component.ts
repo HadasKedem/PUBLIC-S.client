@@ -31,7 +31,7 @@ const NAMES: string[] = [
   styleUrls: ['./admin-page.component.css']
 })
 export class AdminPageComponent implements OnInit {
-
+  public averageWords= 0;
   private data = [
     {"_id": "none", "count": "1"}
   ];
@@ -50,7 +50,7 @@ export class AdminPageComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.users);
   }
   private createSvg(): void {
-    this.svg = d3.select("figure#pie")
+    this.svg = d3.select("figure#pieGroupBy")
     .append("svg")
     .attr("width", this.width)
     .attr("height", this.height)
@@ -109,10 +109,17 @@ private drawChart(): void {
         this.data = articleObject;
         // await this.articleService.getWriter(articleObject.)
         this.createSvg();
+
         this.createColors();
         this.drawChart();
       };
   })
+  // await this.articleService.getMapReduce().subscribe(avg => {
+  //   console.log(avg);
+  // }) 
+  // await this.articleService.getNumberArticle().subscribe(count => {
+  //   console.log(count)
+  // })
  
 }
 

@@ -9,12 +9,10 @@ import { BreakingNewsService } from './services/breaking-news.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers:[ArticlesService,
-  BreakingNewsService]
+  providers:[ArticlesService
+  ]
 })
 export class AppComponent {
   title = 'Public.s';
-  constructor(private service: ArticlesService) {
-    this.service.connect();
-    }
+  
 }
