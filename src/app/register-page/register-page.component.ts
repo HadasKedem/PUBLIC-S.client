@@ -26,6 +26,7 @@ export class RegisterPageComponent  {
     password:'',
     firstName:'',
     lastName:'',
+    city:'',
     isAdmin: false,
     isWriter: false,
   });
@@ -42,6 +43,10 @@ export class RegisterPageComponent  {
   ]);
 
   lastNameFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  cityFormControl = new FormControl('', [
     Validators.required
   ]);
 
