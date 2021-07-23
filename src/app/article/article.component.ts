@@ -23,6 +23,18 @@ export class ArticleComponent implements OnInit {
    }
 
   ngOnInit(): void {
-  }
 
+    this.articleService
+    .listenForNewItem()
+    .subscribe((item: any) => {
+      console.log( item)
+       this.articles = [...this.articles, (item.value)];
+      });
+      this.articleService.getArticles()
+  .subscribe(list => {
+      this.articles = list;
+      this.articles.forEach(x => console.log(x))
+  });
+  }
+  
 }

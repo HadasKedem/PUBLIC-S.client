@@ -6,13 +6,16 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { catchError, tap, switchAll } from 'rxjs/operators';
 import { EMPTY, Subject } from 'rxjs';
 import { coerceStringArray } from '@angular/cdk/coercion';
+import { io, Socket } from 'socket.io-client';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticlesService {
   // private socket$!: WebSocketSubject<any>;
-  public messagesSubject = new BehaviorSubject<Article[]>([]);
+  // public messagesSubject = new BehaviorSubject<Article[]>([]);
+  private socket: any;
 
   // public messages = this.messagesSubject$.pipe(switchAll(), catchError(e => { throw e }));
   
@@ -21,14 +24,17 @@ export class ArticlesService {
   public connection = new WebSocket(this.url)
 
   constructor(private http:HttpClient) {
+    // this.socket = io(this.url, {
+    //   withCredentials: true,
+    //   extraHeaders: {
+    //     "my-custom-header": "abcd"
+    //   }
+    // })
 
     this.connection.onopen = () => {
       this.connection.send('Message From Client')
     }
-     this.getArticles() .subscribe(list => {
-      this.messagesSubject = list;
-      this.messagesSubject.forEach(x => console.log(x))
-  });
+    
 
     this.connection.onerror = (error) => {
 
@@ -37,8 +43,6 @@ export class ArticlesService {
   
     this.connection.onmessage = (e) => {
         console.log(e.data)
-        this.messagesSubject.next( [...this.messagesSubject.getValue(), e.data])
-        this.messagesSubject.subscribe(x=> console.log(x))
       }
   }
   // private socket$!: WebSocketSubject<any>;
@@ -58,6 +62,8 @@ export class ArticlesService {
         const body=JSON.stringify(Article);
     console.log(Article)
     return this.http.post('http://localhost:8080/Article', Article, {headers} ).subscribe();
+    // this.socket.emit("message", {Article})
+
   }
 
   public getArticle(_id: String): Observable<any>{
@@ -97,7 +103,15 @@ export class ArticlesService {
   // close() {
   //   this.socket$.complete(); }
 
- 
+  public listenForNewItem = () => {
+    return new Observable((observer) => {
+      this.connection.onmessage = (e) => {
+        console.log(e);
+        let t = e
+        observer.next(JSON.parse(e.data))
+      }
+      });
+  };
 
   
 
