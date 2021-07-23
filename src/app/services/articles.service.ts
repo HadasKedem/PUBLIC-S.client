@@ -11,23 +11,25 @@ import { EMPTY, Subject } from 'rxjs';
 })
 export class ArticlesService {
   
-  // public url = 'ws://localhost:14000'
-  // public connection = new WebSocket(this.url)
+  
+  public url = 'ws://localhost:14000'
+  public connection = new WebSocket(this.url)
 
   constructor(private http:HttpClient) {
 
-//     this.connection.onopen = () => {
-//       this.connection.send('Message From Client')
-//   }
+    this.connection.onopen = () => {
+      this.connection.send('Message From Client')
+  }
   
-//   this.connection.onerror = (error) => {
-//       console.log(`WebSocket error: ${error}`)
-//   }
+  this.connection.onerror = (error) => {
+
+      console.log(`WebSocket error: ${error}`)
+  }
   
-//   this.connection.onmessage = (e) => {
-//     console.log(e.data)
-// }
-   }
+  this.connection.onmessage = (e) => {
+    console.log(e.data)
+      }
+  }
   // private socket$!: WebSocketSubject<any>;
   // private messagesSubject$ = new Subject();
   // public messages$ = this.messagesSubject$.pipe( catchError(e => { throw e }));
