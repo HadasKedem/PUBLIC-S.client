@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import {Article} from '../models/Article';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { catchError, tap, switchAll } from 'rxjs/operators';
 import { EMPTY, Subject } from 'rxjs';
+import { coerceStringArray } from '@angular/cdk/coercion';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticlesService {
+  // private socket$!: WebSocketSubject<any>;
+  public messagesSubject = new BehaviorSubject<Article[]>([]);
+
+  // public messages = this.messagesSubject$.pipe(switchAll(), catchError(e => { throw e }));
   
   
   public url = 'ws://localhost:14000'
@@ -19,15 +24,21 @@ export class ArticlesService {
 
     this.connection.onopen = () => {
       this.connection.send('Message From Client')
-  }
-  
-  this.connection.onerror = (error) => {
+    }
+     this.getArticles() .subscribe(list => {
+      this.messagesSubject = list;
+      this.messagesSubject.forEach(x => console.log(x))
+  });
+
+    this.connection.onerror = (error) => {
 
       console.log(`WebSocket error: ${error}`)
-  }
+    }
   
-  this.connection.onmessage = (e) => {
-    console.log(e.data)
+    this.connection.onmessage = (e) => {
+        console.log(e.data)
+        this.messagesSubject.next( [...this.messagesSubject.getValue(), e.data])
+        this.messagesSubject.subscribe(x=> console.log(x))
       }
   }
   // private socket$!: WebSocketSubject<any>;

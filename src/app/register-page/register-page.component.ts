@@ -5,6 +5,8 @@ import { User } from '../models/User.model';
 import { registerService } from './services/registerService';
 import { loginService } from '../login-page/services/loginService.service';
 import { Router } from '@angular/router';
+import data  from '../../assets/countries.json';
+
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,7 +22,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent  {
-
+  public countryList:{name:string, code:string}[] = data;
   public register = this.formBuilder.group({
     email:'',
     password:'',

@@ -17,6 +17,9 @@ export class ArticleComponent implements OnInit {
         this.articles = list;
         this.articles.forEach(x => console.log(x))
     });
+    // articleService.messagesSubject.subscribe(articlesWeb => {
+    //   this.articles = articlesWeb;
+    // });
    }
 
   ngOnInit(): void {

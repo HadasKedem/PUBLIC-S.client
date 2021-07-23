@@ -14,5 +14,5 @@ import { BreakingNewsService } from './services/breaking-news.service';
 })
 export class AppComponent {
   title = 'Public.s';
-  
+    
 }

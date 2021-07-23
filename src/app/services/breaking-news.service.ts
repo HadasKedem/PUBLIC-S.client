@@ -43,29 +43,8 @@ import { EMPTY, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class BreakingNewsService {
-  // private socket$!: WebSocketSubject<any>;
-  // private messagesSubject$ = new Subject();
-  // public messages$ = this.messagesSubject$.pipe( catchError(e => { throw e }));
-  
-  // public connect(): void {
-  
-  //   if (!this.socket$ || this.socket$.closed) {
-  //     this.socket$ = this.getNewWebSocket();
-  //     const messages = this.socket$.pipe(
-  //       tap({
-  //         error: error => console.log(error),
-  //       }), catchError(_ => EMPTY));
-  //     this.messagesSubject$.next(messages);
-  //     console.log(messages)
-  //   }
+  // public getArticles(): Observable<any>{
+  //   var t = this.http.get('http://localhost:8080/Article')
+  //   return t;
   // }
-  
-  // private getNewWebSocket() {
-  //   return webSocket('ws://localhost:14001');
-  // }
-  // sendMessage(msg: any) {
-  //   this.socket$.next(msg);
-  // }
-  // close() {
-  //   this.socket$.complete(); }
   }
