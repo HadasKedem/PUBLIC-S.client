@@ -73,36 +73,14 @@ export class ArticlesService {
   public getArticlesByField(): Observable<any>{
     return this.http.get(`http://localhost:8080/Article/group/byField`)
   }
-  // public getMapReduce(): Observable<any> {
-  //   return this.http.get(`http://localhost:8080/Article/mapreduce`)
-  // }
-  // public getNumberArticle(): Observable<any> {
-  //   return this.http.get(`http://localhost:8080/Article/numberArticle`)
-  // }
+  public getArticlesByPage( page: Number): Observable<any>{
+    return this.http.get(`http://localhost:8080/Article/page/` + page)
+  }
 
+  public getArticlesField( q: String): Observable<any>{
+    return this.http.get(`http://localhost:8080/Article/?q=` + q)
+  }
   
-  // public connect(): void {
-  
-  //   if (!this.socket$ || this.socket$.closed) {
-  //     this.socket$ = this.getNewWebSocket();
-  //     const messages = this.socket$.pipe(
-  //       tap({
-  //         error: error => console.log(error),
-  //       }), catchError(_ => EMPTY));
-  //     this.messagesSubject$.next(messages);
-  //     console.log(messages)
-  //   }
-  // }
-  
-  // private getNewWebSocket() {
-  //   return webSocket('ws://localhost:14000');
-  // }
-  // sendMessage(msg: any) {
-  //   this.socket$.next(msg);
-  // }
-  // close() {
-  //   this.socket$.complete(); }
-
   public listenForNewItem = () => {
     return new Observable((observer) => {
       this.connection.onmessage = (e) => {

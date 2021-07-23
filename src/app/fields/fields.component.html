@@ -15,16 +15,14 @@
 </mat-tab-group>
   </th>
   <th>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" >
+    <button mat-icon-button (click)="onClickedSearch()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" >
   <mat-icon>search</mat-icon>
 </button>
 </th>
 <th>
-<form class="example-form" >
   <mat-form-field >
-    <input matInput value="search">
+    <input matInput  type="text" value="search" [(ngModel)]='searchGen'>
   </mat-form-field>
-</form>
 
   </th>
 </table>
