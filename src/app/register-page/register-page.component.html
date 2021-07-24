@@ -34,8 +34,8 @@
     <mat-form-field class="example-full-width">
       <mat-label>country</mat-label>
       <mat-select formControlName="cityFormControl" [errorStateMatcher]="matcher" formControlName="city" >
-        <mat-option *ngFor="let country of countryList" [value]="country.name">
-          {{country.name}}
+        <mat-option *ngFor="let country of countryList" [value]="country._id">
+          {{country.country}}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="cityFormControl.hasError('required')">

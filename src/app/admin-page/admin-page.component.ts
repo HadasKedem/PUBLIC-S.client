@@ -3,6 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import * as d3 from 'd3';
+import { Country } from '../models/Country.model';
 import { User } from '../models/User.model';
 import { ArticlesService} from '../services/articles.service';
 import { UsersService } from '../services/users.service';
