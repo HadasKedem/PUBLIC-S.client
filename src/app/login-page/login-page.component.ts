@@ -48,23 +48,30 @@ export class LoginPageComponent {
     matcher = new MyErrorStateMatcher();
 
 
-    onSubmit(): void {   
-      console.log('before');   
+    onSubmit(): void { 
       let loginUser = this.login.value;      
       this.loginservice.loginUser(loginUser, "").subscribe(responseToken => {
-        if(responseToken) {
-          console.log('after');
-            this.userToken = responseToken;
-            localStorage.setItem("userToken", responseToken);
-            localStorage.setItem("userEmail", loginUser.username);
-            this.loginservice.getUserByEmail(loginUser.username).subscribe(userObject => {
-              if (userObject) {
-                localStorage.setItem('user', JSON.stringify(userObject));
-              }
-            });          
+        if(responseToken === 'No user exists! ') {
+          window.alert('No user exists!');
+        } else {
+          if(responseToken === "Password don't match") {
+            window.alert('Password dont match');
+          } else {
+            if(responseToken !== 'No user exists! ' && responseToken !== "Password don't match") {
+              this.userToken = responseToken;
+              localStorage.setItem("userToken", responseToken);
+              localStorage.setItem("userEmail", loginUser.username);
+              this.loginservice.getUserByEmail(loginUser.username).subscribe(userObject => {
+                if (userObject) {
+                  localStorage.setItem('user', JSON.stringify(userObject));
+                }
+              }); 
+              this.getLoggedIn.emit(true);
+              this.router.navigate(['/']);
+            }
+          }
         }
       });
-      this.getLoggedIn.emit(true);
-      this.router.navigate(['/']);
+
     };
 }

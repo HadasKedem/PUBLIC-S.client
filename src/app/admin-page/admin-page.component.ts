@@ -150,8 +150,6 @@ private drawChart(): void {
     console.log(this.dataSource)
 
    } )
-
-
 }
 
   displayedColumns: string[] = [ 'name', 'email', 'city','writer', 'admin', 'delete'];

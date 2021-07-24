@@ -26,15 +26,12 @@ export class ArticlePageComponent implements OnInit {
 
    async getArticle() {
     const _id = String(this.route.snapshot.paramMap.get('_id'));
-    console.log(_id)
      await this.articleService.getArticle(_id).subscribe(articleObject => {
       if (articleObject) {
-        console.log(articleObject)
         this.currArticle = articleObject;
         // await this.articleService.getWriter(articleObject.)
 
       }
-    }); ;
-    console.log(this.currArticle)
+    });
   }
 }
