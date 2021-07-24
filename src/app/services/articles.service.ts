@@ -76,6 +76,11 @@ export class ArticlesService {
   public getArticlesField( q: String): Observable<any>{
     return this.http.get(`http://localhost:8080/Article/?q=` + q)
   }
+
+  public getArticlesAverageWord(): Observable<any>{
+    return this.http.get(`http://localhost:8080/Article/q/averageWords`)
+  }
+  
   
   public listenForNewItem = () => {
     return new Observable((observer) => {

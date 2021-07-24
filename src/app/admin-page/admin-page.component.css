@@ -15,7 +15,14 @@ table {
   td, th {
     width: 20%;
   }
+h1{
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+}
 
+.average{
+  color: cornflowerblue !important;
+}
 
 .piechart{
     margin-left: 5%;

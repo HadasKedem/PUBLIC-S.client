@@ -7,6 +7,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.news{
+  font-family: 'Times New Roman', Times, serif;
+}
+
 h1,
 h2,
 h3,

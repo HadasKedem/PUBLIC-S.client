@@ -24,3 +24,10 @@
 .updateContent{
   font-family: "Times New Roman";
 }
+
+tr{
+  vertical-align:top;
+  padding-top:25px
+  /* display:block; */
+  /* position:relative; */
+}

@@ -37,14 +37,19 @@ import { Injectable } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { environment } from '../../environments/environment';
 import { catchError, tap, switchAll } from 'rxjs/operators';
-import { EMPTY, Subject } from 'rxjs';
+import { EMPTY, Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
   
 @Injectable({
   providedIn: 'root'
 })
 export class BreakingNewsService {
-  // public getArticles(): Observable<any>{
-  //   var t = this.http.get('http://localhost:8080/Article')
-  //   return t;
-  // }
+  constructor(private http:HttpClient) {
+     }
+
+  public getBreakingNewsByPage( page: Number): Observable<any>{
+    return this.http.get(`http://localhost:8080/BreakingNews/page/` + page)
+  }
+
+
   }

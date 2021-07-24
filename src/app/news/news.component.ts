@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Article } from '../models/Article';
+import { BreakingNewsService } from '../services/breaking-news.service';
 
 @Component({
   selector: 'app-news',
@@ -7,21 +8,27 @@ import { Article } from '../models/Article';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
-  updates = [
-    { title: 'corona', content: 'is over' },
-    { title: 'bibi', content: 'is no longer the head on minister' },
-    { title: 'climate', content: 'is important' },
-    { title: 'hadas', content: 'is the queen of the world' },
-  ];
+  updates = [{"author": "",
+  "content": "",
+  "date": "",
+  "_id": ""
+  }];
 
   @Input() searchQ!: String;
   @Output() searchQChange = new EventEmitter();
 
   @Input() articles: Article[] | [] = [] ;
   @Output() articleChange = new EventEmitter();
-  constructor() { }
+  constructor( private breakingNewsService:BreakingNewsService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+
+  await this.breakingNewsService.getBreakingNewsByPage(0).subscribe(
+    updatesNew => 
+    {this.updates = updatesNew
+      console.log(this.updates)
+    }
+  )
   }
 
 }

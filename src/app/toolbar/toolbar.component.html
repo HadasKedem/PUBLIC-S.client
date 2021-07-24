@@ -3,14 +3,8 @@
   <button mat-icon-button (click)="onClickedHome()" class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>home</mat-icon>
   </button>
-  <button mat-icon-button (click)="onClickedSearch()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" >
-    <mat-icon>search</mat-icon>
-  </button>
-  <form class="example-form" *ngIf="showInput">
-    <mat-form-field >
-      <input matInput value="search">
-    </mat-form-field>
-  </form>
+  <p class="news">The news for you.</p>
+
   <span></span>
   <div class="spacer"></div>
   <button *ngIf="(loginService.isWriter | async)" mat-button routerLink="newarticle" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
