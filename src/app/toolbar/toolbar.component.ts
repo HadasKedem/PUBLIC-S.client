@@ -43,6 +43,10 @@ export class ToolbarComponent implements OnInit {
     this.showInput = !this.showInput;
   }
 
+  onClickedHome() {
+    this.router.navigate(['/']);
+  }
+
   onClickedLogOut() {
     localStorage.removeItem('userToken');
     localStorage.removeItem('userEmail');
