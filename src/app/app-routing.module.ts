@@ -7,6 +7,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { NewArticlePageComponent } from './new-article-page/new-article-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 
+import { AdminGuard } from './auth/admin.guard';
+import { WriterGuard } from './auth/writer.guard';
 
 
 const routes: Routes = [
@@ -14,15 +16,9 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent},
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent},
-  { path: 'admin', component: AdminPageComponent},
-  { path: 'newarticle', component: NewArticlePageComponent},
-  // { path: 'article', component:  ArticlePageComponent},
+  { path: 'admin', component: AdminPageComponent, canActivate: [AdminGuard]},
+  { path: 'newarticle', component: NewArticlePageComponent, canActivate: [WriterGuard]},
   { path: 'article/:_id', component:  ArticlePageComponent},
-
-
-
-  // { path: 'article/:id', component: HeroDetailComponent },
-  // { path: 'login', component: HeroesCompon'register', component: HeroesComponent }
 ];
 
 @NgModule({

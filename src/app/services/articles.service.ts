@@ -38,12 +38,11 @@ export class ArticlesService {
 
     this.connection.onerror = (error) => {
 
-      console.log(`WebSocket error: ${error}`)
+      //console.log(`WebSocket error: ${error}`)
     }
   
     this.connection.onmessage = (e) => {
-        console.log(e.data)
-      }
+    }
   }
   // private socket$!: WebSocketSubject<any>;
   // private messagesSubject$ = new Subject();
@@ -59,11 +58,8 @@ export class ArticlesService {
   public addArticle(Article: Article){
     var headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-        const body=JSON.stringify(Article);
-    console.log(Article)
+    const body=JSON.stringify(Article);
     return this.http.post('http://localhost:8080/Article', Article, {headers} ).subscribe();
-    // this.socket.emit("message", {Article})
-
   }
 
   public getArticle(_id: String): Observable<any>{
@@ -84,7 +80,6 @@ export class ArticlesService {
   public listenForNewItem = () => {
     return new Observable((observer) => {
       this.connection.onmessage = (e) => {
-        console.log(e);
         let t = e
         observer.next(JSON.parse(e.data))
       }
