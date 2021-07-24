@@ -29,14 +29,17 @@
           last name is <strong>required</strong>
         </mat-error>
     </mat-form-field>
+    
     <br/>
-
-    <mat-form-field appearance="outline" class="example-full-width">
-      <mat-label>city</mat-label>
-      <input   type="text" matInput [formControl]="cityFormControl" formControlName="city" [errorStateMatcher]="matcher"
-             placeholder="Hod HaSharon">
+    <mat-form-field class="example-full-width">
+      <mat-label>country</mat-label>
+      <mat-select formControlName="cityFormControl" [errorStateMatcher]="matcher" formControlName="city" >
+        <mat-option *ngFor="let country of countryList" [value]="country.name">
+          {{country.name}}
+        </mat-option>
+      </mat-select>
       <mat-error *ngIf="cityFormControl.hasError('required')">
-        city is <strong>required</strong>
+        country is <strong>required</strong>
       </mat-error>
     </mat-form-field>
     <br/>

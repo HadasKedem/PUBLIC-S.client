@@ -60,6 +60,7 @@ export class RegisterPageComponent  {
 
   onSubmit(): void {
     let register:User = this.register.value as User;
+    console.log(register)
     if(register.email !="" && register.password!=""){
       this.registerservice.SaveRegistration(register, "").subscribe();
       //login the current user
