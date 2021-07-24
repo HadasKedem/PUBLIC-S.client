@@ -26,6 +26,7 @@ import { NewArticlePageComponent } from './new-article-page/new-article-page.com
 import { ArticlePageComponent } from './article-page/article-page.component';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
 import { MapComponent } from './admin-page/map/map.component';
+import { BreakingNewsPageComponent } from './breaking-news-page/breaking-news-page.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:14001', options: {} };
 
@@ -44,7 +45,8 @@ const config: SocketIoConfig = { url: 'http://localhost:14001', options: {} };
     NewArticlePageComponent,
     ArticlePageComponent,
     LogoutPageComponent,
-    MapComponent
+    MapComponent,
+    BreakingNewsPageComponent
   ],
   imports: [
     BrowserModule,
