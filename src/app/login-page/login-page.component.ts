@@ -51,16 +51,13 @@ export class LoginPageComponent {
     onSubmit(): void { 
       let loginUser = this.login.value;      
       this.loginservice.loginUser(loginUser, "").subscribe(responseToken => {
-        console.log('$$$$$$$$$$$$$');
-        console.log(responseToken);
         if(responseToken === 'No user exists! ') {
-          console.log('!!!!!!!!!!!!');
           window.alert('No user exists!');
         } else {
-          if(responseToken === 'Password dont match') {
+          if(responseToken === "Password don't match") {
             window.alert('Password dont match');
           } else {
-            if(responseToken !== 'No user exists! ' && responseToken !== 'Password dont match') {
+            if(responseToken !== 'No user exists! ' && responseToken !== "Password don't match") {
               this.userToken = responseToken;
               localStorage.setItem("userToken", responseToken);
               localStorage.setItem("userEmail", loginUser.username);
