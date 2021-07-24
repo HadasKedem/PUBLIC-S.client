@@ -14,6 +14,10 @@ export class UsersService {
     return t;
   }
 
+  public getUser(_id: String): Observable<any>{
+    return this.http.get(`http://localhost:8080/Users/` + _id);
+}
+
   public deleteUser(_id: String): Observable<any>{
     var headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -38,7 +42,7 @@ export class UsersService {
       console.log(`Bearer ${localStorage.getItem("userToken")}` )
       console.log( headers)
   
-        return this.http.delete(`http://localhost:8080/Users/` + _id , {"headers": headers});
+        return this.http.put(`http://localhost:8080/Users/` + _id , {"headers": headers});
         
       }
 

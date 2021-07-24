@@ -57,8 +57,10 @@ export class ArticlesService {
 
   public addArticle(Article: Article){
     var headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    const body=JSON.stringify(Article);
+      headers = headers.append('Content-Type', 'application/json');
+      if (localStorage.getItem("userToken")){
+       headers = headers.append('Authorization', `${localStorage.getItem("userToken")}` );
+      }
     return this.http.post('http://localhost:8080/Article', Article, {headers} ).subscribe();
   }
 
