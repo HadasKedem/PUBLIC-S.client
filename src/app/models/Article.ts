@@ -1,8 +1,10 @@
 export class Article{
-    ID: String = "";
+    _id?: String ;
     title: String ="";
-    subTitle: String = "";
+    subTitle: String ="";
     content: String = "";
     writer: String ="";
-    field: String= "";
+    field: String="";
+    imageUrl: String="";
 }
+

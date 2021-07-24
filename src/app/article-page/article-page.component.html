@@ -1,11 +1,12 @@
-<div class="center">
+<div class="center" >
 <br/>
 <h1>
-    U.S. Leaves Its Last Afghan Base, Effectively Ending Operations
+    {{currArticle.title}}
 </h1>
 <h3>
-    With little fanfare, Bagram Air Base — once the military’s nerve center — was handed over to the Afghans, after nearly 20 years of waging war from the hub.</h3>
-<img class="image" src="https://static01.nyt.com/images/2021/07/02/world/02AFGHANISTAN-BAGRAM02sub/merlin_165170694_eee66bee-505a-4321-b1bd-a754fe3108ea-jumbo.jpg?quality=90&auto=webp">
+    {{currArticle.subTitle}}
+</h3>
+<img class="image" src="{{currArticle.imageUrl}}">
 <br/>
 <table>
     <tr>
@@ -13,17 +14,14 @@
             <ngx-avatar src="assets/writing.jpg"></ngx-avatar>
         </td>
         <td>
-            hadas kedem. field.
+            {{currArticle.writer}}. {{currArticle.field}}.
         </td>
     </tr>
     
 </table>
 <div class="content">
     <br/>
+{{currArticle.content}}
 
-
-    KABUL, Afghanistan — American troops and their Western allies have departed Bagram, the last active air base used by the U.S. military in Afghanistan, officials said on Friday, effectively ending major U.S. military operations in Afghanistan.
-
-With little fanfare and no public ceremony, American troops left the base on Thursday night, U.S. and Afghan officials said, even as the Taliban sweeps through the country’s northern provinces, capturing large swathes of territory. The closure, a symbol of the United States’ costly operations in Afghanistan, turned over to the Afghan government the sprawling installation from which the United States waged war for nearly two decades.
-</div>
+  </div>
 </div>

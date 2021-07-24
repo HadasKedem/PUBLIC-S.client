@@ -6,7 +6,8 @@
 /*}*/
 
 .image{
-  width: 35vw !important;
-  height: 40vh;
+  object-fit: cover;
+  width: 50vw !important;
+  height: 60vh;
   object-fit: fill;
 }

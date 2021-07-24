@@ -1,20 +1,20 @@
 <table>
   <tbody>
   <tr *ngFor="let article of articles">
-    <table>
-      <tbody>
-      <tr>
-      <td>
-       <p class="updateTitle">{{article.title}}</p>
-        <p class="updateContent">{{article.content}}</p>
-      </td>
-        <td class="tdImage">
-          <img class="image" src="{{article.imageLink}}">
-        </td>
-      </tr>
+  <br/>
+    <a [routerLink]="['/article', article._id]" >
+    <mat-card class="example-card">
+      <img mat-card-image class="image" src="{{article.imageUrl}}">	
 
-      </tbody>
-    </table>
+      <mat-card-header>
+        <mat-card-title>{{article.title}}</mat-card-title>
+        <mat-card-subtitle>
+          {{article.subTitle}}
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </a>
+
   </tr>
 
   </tbody>

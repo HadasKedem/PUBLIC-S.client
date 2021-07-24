@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Article } from '../models/Article';
+import { ArticlesService } from '../services/articles.service';
+import { first } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-article-page',
@@ -7,9 +12,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArticlePageComponent implements OnInit {
 
-  constructor() { }
+
+  currArticle: any | undefined;
+
+  constructor(
+    private route: ActivatedRoute,
+    private articleService: ArticlesService,
+  ) {}
 
   ngOnInit(): void {
+    this.getArticle();
   }
 
+   async getArticle() {
+    const _id = String(this.route.snapshot.paramMap.get('_id'));
+    console.log(_id)
+     await this.articleService.getArticle(_id).subscribe(articleObject => {
+      if (articleObject) {
+        console.log(articleObject)
+        this.currArticle = articleObject;
+        // await this.articleService.getWriter(articleObject.)
+
+      }
+    }); ;
+    console.log(this.currArticle)
+  }
 }

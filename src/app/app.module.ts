@@ -1,9 +1,14 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+
 import { CommonModule } from '@angular/common';
+
 
 import { AngularWeatherWidgetModule } from 'angular2-weather-widget';
 
@@ -15,6 +20,8 @@ import { AppComponent } from './app.component';
 import {DemoMaterialModule} from './material-module';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { AvatarModule } from 'ngx-avatar';
+import { GoogleMapsModule } from '@angular/google-maps'
+
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,8 +36,12 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { NewArticlePageComponent } from './new-article-page/new-article-page.component';
 import { ArticlePageComponent } from './article-page/article-page.component';
-import { LogoutPageComponent } from './logout-page/logout-page.component';
+// import {  PieChartComponent } from 'angular-d3-charts';
 
+
+import { LogoutPageComponent } from './logout-page/logout-page.component';
+import { MapComponent } from './admin-page/map/map.component';
+const config: SocketIoConfig = { url: 'http://localhost:14001', options: {} };
 
 @NgModule({
   declarations: [
@@ -46,7 +57,9 @@ import { LogoutPageComponent } from './logout-page/logout-page.component';
     AdminPageComponent,
     NewArticlePageComponent,
     ArticlePageComponent,
-    LogoutPageComponent
+    // PieChartComponent
+    LogoutPageComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
@@ -54,13 +67,20 @@ import { LogoutPageComponent } from './logout-page/logout-page.component';
     DemoMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule,
+    // ChartsModule,
     HttpClientModule,
     AvatarModule,
     AngularWeatherWidgetModule,
-    CommonModule
-  ],
+    CommonModule,
+    HttpModule,
+    BrowserAnimationsModule,
+    GoogleMapsModule,
+    SocketIoModule.forRoot(config)
+    ],
   providers: [],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

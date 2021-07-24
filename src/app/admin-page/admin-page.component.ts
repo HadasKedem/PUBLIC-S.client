@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { ChartType, ChartOptions } from 'chart.js';
-import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import * as d3 from 'd3';
+import { ArticlesService} from '../services/articles.service';
 
 
 
@@ -30,16 +30,98 @@ const NAMES: string[] = [
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.css']
 })
-export class AdminPageComponent {
-  public pieChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  public pieChartLabels: Label[] = [['SciFi'], ['Drama'], 'Comedy'];
-  public pieChartData: SingleDataSet = [30, 50, 20];
-  public pieChartType: ChartType = 'pie';
-  public pieChartLegend = true;
-  public pieChartPlugins = [];
+export class AdminPageComponent implements OnInit {
+  public averageWords= 0;
+  private data = [
+    {"_id": "none", "count": "1"}
+  ];
+  private svg: any;
+  private margin = 20;
+  private width = 300;
+  private height = 300;
+  // The radius of the pie chart is half the smallest side
+  private radius = Math.min(this.width, this.height) / 2 - this.margin;
+  private colors: any;
+ 
 
+  constructor(private articleService:ArticlesService) {
+
+    // Assign the data to the data source for the table to render
+    this.dataSource = new MatTableDataSource(this.users);
+  }
+  private createSvg(): void {
+    this.svg = d3.select("figure#pieGroupBy")
+    .append("svg")
+    .attr("width", this.width)
+    .attr("height", this.height)
+    .append("g")
+    .attr(
+      "transform",
+      "translate(" + this.width / 2 + "," + this.height / 2 + ")"
+    );
+}
+
+private createColors(): void {
+  this.colors = d3.scaleOrdinal()
+  .domain(this.data.map(d => d.count.toString()))
+  .range(["#c7d3ec", "#a5b8db", "#879cc4", "#677795", "#5a6782"]);
+}
+
+
+private drawChart(): void {
+  // Compute the position of each group on the pie:
+  const pie = d3.pie<any>().value((d: any) => Number(d.count));
+
+  // Build the pie chart
+  this.svg
+  .selectAll('pieces')
+  .data(pie(this.data))
+  .enter()
+  .append('path')
+  .attr('d', d3.arc()
+    .innerRadius(0)
+    .outerRadius(this.radius)
+  )
+  .attr('fill', (d: any, i: any) => (this.colors(i)))
+  .attr("stroke", "#121926")
+  .style("stroke-width", "1px");
+
+  // Add labels
+  const labelLocation = d3.arc()
+  .innerRadius(50)
+  .outerRadius(this.radius);
+
+  this.svg
+  .selectAll('pieces')
+  .data(pie(this.data))
+  .enter()
+  .append('text')
+  .text((d: { data: { _id: any; }; }) => d.data._id)
+  .attr("transform", (d: d3.DefaultArcObject) => "translate(" + labelLocation.centroid(d) + ")")
+  .style("text-anchor", "middle")
+  .style("font-size", 15);
+}
+
+   async ngOnInit() {
+   await this.articleService.getArticlesByField().subscribe(articleObject => {
+      if (articleObject) {
+        console.log(articleObject)
+        this.data = articleObject;
+        // await this.articleService.getWriter(articleObject.)
+        this.createSvg();
+
+        this.createColors();
+        this.drawChart();
+      };
+  })
+  // await this.articleService.getMapReduce().subscribe(avg => {
+  //   console.log(avg);
+  // }) 
+  // await this.articleService.getNumberArticle().subscribe(count => {
+  //   console.log(count)
+  // })
+ 
+}
 
   displayedColumns: string[] = ['id', 'name', 'email','writer', 'admin', 'delete'];
   dataSource: MatTableDataSource<UserData>;
@@ -52,14 +134,6 @@ export class AdminPageComponent {
 
   private users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
-  constructor() {
-    monkeyPatchChartJsTooltip();
-    monkeyPatchChartJsLegend();
-    // Create 100 users
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(this.users);
-  }
 
   onClickedDelete(id: string){
     for(let i = 0; i < this.users.length; ++i){
