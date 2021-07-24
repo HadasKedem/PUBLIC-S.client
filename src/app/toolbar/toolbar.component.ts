@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { loginService } from '../login-page/services/loginService.service';
 
 @Component({
@@ -9,10 +10,29 @@ import { loginService } from '../login-page/services/loginService.service';
 export class ToolbarComponent implements OnInit {
   showInput = false;
   userName: string = '';
-  //loggedIn: Boolean = this.CheckIfLoggedin();
+  isUserWriter: boolean = false;
+  isUserAdmin: boolean = false;
+
+  constructor(public loginService: loginService, private router: Router) {  }
 
   CheckIfLoggedin(){
     if(localStorage.getItem("userToken")){
+      return true;
+    }else{
+      return false
+    }
+  }
+
+  CheckIfWriter(){
+    if(JSON.parse(localStorage.getItem('user') || '{}').isWriter){
+      return true;
+    }else{
+      return false
+    }
+  }
+
+  CheckIfAdmin(){
+    if(JSON.parse(localStorage.getItem('user') || '{}').isAdmin){
       return true;
     }else{
       return false
@@ -27,10 +47,9 @@ export class ToolbarComponent implements OnInit {
     localStorage.removeItem('userToken');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('user');
-    //this.loggedIn = false;
+    this.router.navigate(['/']);
   }
-  constructor(public loginService: loginService) {
-  }
+  
   
   public changeLoggedIn(): void {
     //this.loggedIn = this.CheckIfLoggedin();
@@ -40,6 +59,8 @@ export class ToolbarComponent implements OnInit {
     //this.loggedIn = this.CheckIfLoggedin();
     if(!!localStorage.getItem('user')) {
       this.userName = JSON.parse(localStorage.getItem('user') || '{}').firstName;
+      this.isUserWriter = JSON.parse(localStorage.getItem('user') || '{}').isWriter;
+      this.isUserAdmin = JSON.parse(localStorage.getItem('user') || '{}').isAdmin;
     }
   }
 }

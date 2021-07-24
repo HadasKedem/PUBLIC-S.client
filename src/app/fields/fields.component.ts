@@ -24,22 +24,19 @@ export class FieldsComponent implements OnInit {
   }
 
   public onClickedSearch(){
-    console.log(this.searchGen)
-    this.search(this.searchGen)
+    this.search(this.searchGen);
   }
 
   public chooseField(e: MatTabChangeEvent){
     this.searchQ = e.tab.textLabel;
-    console.log(this.searchQ)
     // this.articleService.getArticlesField(`{"field": "${this.searchQ}"}`).subscribe(list => {
-      this.search(this.searchQ)
+      this.search(this.searchQ);
   }
 
   public search(q : String){
  this.articleService.getArticlesField(q).subscribe(list => {
       this.articles = list;
-          console.log(list)
-          this.articles.forEach(x => console.log(x))
+          //this.articles.forEach(x => console.log(x))
           this.articleChange.emit(this.articles);
           
     })

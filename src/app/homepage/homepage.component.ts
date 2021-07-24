@@ -17,7 +17,7 @@ export class HomepageComponent implements OnInit {
     this.articleService.getArticles()
     .subscribe(list => {
         this.articles = list;
-        this.articles.forEach(x => console.log(x))
+        //this.articles.forEach(x => console.log(x))
     });
     
    }
@@ -27,13 +27,12 @@ export class HomepageComponent implements OnInit {
     this.articleService
     .listenForNewItem()
     .subscribe((item: any) => {
-      console.log( item)
        this.articles = [...this.articles, (item.value)];
       });
       this.articleService.getArticles()
   .subscribe(list => {
       this.articles = list;
-      this.articles.forEach(x => console.log(x))
+      //this.articles.forEach(x => console.log(x))
   });
   }
 

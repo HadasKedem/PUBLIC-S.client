@@ -105,7 +105,6 @@ private drawChart(): void {
    async ngOnInit() {
    await this.articleService.getArticlesByField().subscribe(articleObject => {
       if (articleObject) {
-        console.log(articleObject)
         this.data = articleObject;
         // await this.articleService.getWriter(articleObject.)
         this.createSvg();
@@ -115,10 +114,8 @@ private drawChart(): void {
       };
   })
   // await this.articleService.getMapReduce().subscribe(avg => {
-  //   console.log(avg);
   // }) 
   // await this.articleService.getNumberArticle().subscribe(count => {
-  //   console.log(count)
   // })
  
 }

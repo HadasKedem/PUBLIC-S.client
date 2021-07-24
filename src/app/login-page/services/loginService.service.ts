@@ -7,6 +7,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 })
 export class loginService {
   private _isLoggedIn = new BehaviorSubject<boolean>(false);
+  private _isWriter = new BehaviorSubject<boolean>(false);
+  private _isAdmin = new BehaviorSubject<boolean>(false);
   private _userName = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) { }
@@ -20,6 +22,24 @@ export class loginService {
     return this._isLoggedIn.asObservable();
   }
 
+  get isWriter() {    
+    if(JSON.parse(localStorage.getItem('user') || '{}').isWriter){
+      this._isWriter.next(true);      
+    }else{
+      this._isWriter.next(false);
+    }
+    return this._isWriter.asObservable();
+  }
+
+  get isAdmin() {    
+    if(JSON.parse(localStorage.getItem('user') || '{}').isAdmin){
+      this._isAdmin.next(true);      
+    }else{
+      this._isAdmin.next(false);
+    }
+    return this._isAdmin.asObservable();
+  }
+
   get userName() {
     if(localStorage.getItem("userToken")) {
       this._userName.next(JSON.parse(localStorage.getItem('user') || '{}').firstName);
@@ -27,6 +47,14 @@ export class loginService {
       this._userName.next('');
     }
     return this._userName.asObservable();
+  }
+
+  public isUserAdmin(): boolean {
+    return this._isAdmin.value;
+  }
+
+  public isUserWriter(): boolean {
+    return this._isWriter.value;
   }
 
  public loginUser(user: any, response: any): Observable<any> {
