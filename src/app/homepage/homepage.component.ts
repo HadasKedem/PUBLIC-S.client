@@ -14,7 +14,7 @@ export class HomepageComponent implements OnInit {
   
 
   constructor(private articleService:ArticlesService) {
-    this.articleService.getArticles()
+    this.articleService.getArticlesByPage(0)
     .subscribe(list => {
         this.articles = list;
         this.articles.forEach(x => console.log(x))

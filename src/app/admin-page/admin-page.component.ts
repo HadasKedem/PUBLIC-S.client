@@ -3,16 +3,19 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import * as d3 from 'd3';
+import { User } from '../models/User.model';
 import { ArticlesService} from '../services/articles.service';
+import { UsersService } from '../services/users.service';
 
 
 
 export interface UserData {
-  id: string;
-  name: string;
+  id: String |undefined;
+  name: String;
   email: String;
   writer: boolean;
   admin: boolean;
+  city: String;
 }
 
 /** Constants used to fill up our data base. */
@@ -32,6 +35,10 @@ const NAMES: string[] = [
 })
 export class AdminPageComponent implements OnInit {
   public averageWords= 0;
+  public averageCities= 0;
+
+  private users : UserData[] = [];
+
   private data = [
     {"_id": "none", "count": "1"}
   ];
@@ -42,12 +49,15 @@ export class AdminPageComponent implements OnInit {
   // The radius of the pie chart is half the smallest side
   private radius = Math.min(this.width, this.height) / 2 - this.margin;
   private colors: any;
- 
+  dataSource: MatTableDataSource<UserData>;
 
-  constructor(private articleService:ArticlesService) {
+
+  constructor(private articleService:ArticlesService, 
+    private usersService: UsersService,
+    ) {
+      this.dataSource= new MatTableDataSource(this.users);
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(this.users);
   }
   private createSvg(): void {
     this.svg = d3.select("figure#pieGroupBy")
@@ -103,9 +113,17 @@ private drawChart(): void {
 }
 
    async ngOnInit() {
+    await this.articleService.getArticlesAverageWord().subscribe(num => 
+      {this.averageWords = num.average
+      })
+
+     await this.usersService.getUsersAverageCities().subscribe(
+       num => 
+       this.averageCities = num.estimated
+     )
+
    await this.articleService.getArticlesByField().subscribe(articleObject => {
       if (articleObject) {
-        console.log(articleObject)
         this.data = articleObject;
         // await this.articleService.getWriter(articleObject.)
         this.createSvg();
@@ -114,17 +132,29 @@ private drawChart(): void {
         this.drawChart();
       };
   })
-  // await this.articleService.getMapReduce().subscribe(avg => {
-  //   console.log(avg);
-  // }) 
-  // await this.articleService.getNumberArticle().subscribe(count => {
-  //   console.log(count)
-  // })
- 
+  
+  await this.usersService.getUsers().subscribe(
+    usersT =>{
+    usersT.forEach((user: User) => {
+      this.users.push(  {
+      id: user._id,
+      name: `${user.firstName} ${user.lastName}`,
+      email: user.email,
+      writer: user.isWriter,
+      admin: user.isAdmin,
+      city: user.city
+    });
+    });
+    this.dataSource= new MatTableDataSource(this.users);
+
+    console.log(this.dataSource)
+
+   } )
+
+
 }
 
-  displayedColumns: string[] = ['id', 'name', 'email','writer', 'admin', 'delete'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = [ 'name', 'email', 'city','writer', 'admin', 'delete'];
 
 
   @ViewChild(MatPaginator)
@@ -132,10 +162,11 @@ private drawChart(): void {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  private users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
 
-  onClickedDelete(id: string){
+  async onClickedDelete(id: string){
+    console.log(id)
+    await this.usersService.deleteUser(id).subscribe()
     for(let i = 0; i < this.users.length; ++i){
       if (this.users[i].id === id) {
           this.users.splice(i,1);
@@ -174,17 +205,3 @@ private drawChart(): void {
 }
 
 
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    email: 'user@gmail.com',
-    writer: false,
-    admin: false
-  };
-}
