@@ -51,5 +51,8 @@ export class BreakingNewsService {
     return this.http.get(`http://localhost:8080/BreakingNews/page/` + page)
   }
 
+  public getBreakingNewsFindBy( words: String): Observable<any>{
+    return this.http.get(`http://localhost:8080/BreakingNews/q/` + words)
+  }
 
   }

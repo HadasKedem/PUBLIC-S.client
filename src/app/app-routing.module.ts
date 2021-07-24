@@ -9,6 +9,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 
 import { AdminGuard } from './auth/admin.guard';
 import { WriterGuard } from './auth/writer.guard';
+import { BreakingNewsPageComponent } from './breaking-news-page/breaking-news-page.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent},
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent},
+  { path: 'breaking', component: BreakingNewsPageComponent},
   { path: 'admin', component: AdminPageComponent, canActivate: [AdminGuard]},
   { path: 'newarticle', component: NewArticlePageComponent, canActivate: [WriterGuard]},
   { path: 'article/:_id', component:  ArticlePageComponent},
