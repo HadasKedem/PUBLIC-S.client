@@ -2,7 +2,7 @@
   <table  class="gridList">
     <tr clas="articles">
       <td>
-        <app-article></app-article>
+        <app-article  [articles]="articles" (articleChange)="this.articles= $event"></app-article>
       </td>
       <td>
       <table class="tableUpdates">

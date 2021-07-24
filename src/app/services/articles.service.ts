@@ -1,33 +1,48 @@
 import { Injectable } from '@angular/core';
 import {Article} from '../models/Article';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { catchError, tap, switchAll } from 'rxjs/operators';
 import { EMPTY, Subject } from 'rxjs';
+import { coerceStringArray } from '@angular/cdk/coercion';
+import { io, Socket } from 'socket.io-client';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticlesService {
+  // private socket$!: WebSocketSubject<any>;
+  // public messagesSubject = new BehaviorSubject<Article[]>([]);
+  private socket: any;
+
+  // public messages = this.messagesSubject$.pipe(switchAll(), catchError(e => { throw e }));
   
   
   public url = 'ws://localhost:14000'
   public connection = new WebSocket(this.url)
 
   constructor(private http:HttpClient) {
+    // this.socket = io(this.url, {
+    //   withCredentials: true,
+    //   extraHeaders: {
+    //     "my-custom-header": "abcd"
+    //   }
+    // })
 
     this.connection.onopen = () => {
       this.connection.send('Message From Client')
-  }
-  
-  this.connection.onerror = (error) => {
+    }
+    
+
+    this.connection.onerror = (error) => {
 
       console.log(`WebSocket error: ${error}`)
-  }
+    }
   
-  this.connection.onmessage = (e) => {
-    console.log(e.data)
+    this.connection.onmessage = (e) => {
+        console.log(e.data)
       }
   }
   // private socket$!: WebSocketSubject<any>;
@@ -47,6 +62,8 @@ export class ArticlesService {
         const body=JSON.stringify(Article);
     console.log(Article)
     return this.http.post('http://localhost:8080/Article', Article, {headers} ).subscribe();
+    // this.socket.emit("message", {Article})
+
   }
 
   public getArticle(_id: String): Observable<any>{
@@ -56,37 +73,23 @@ export class ArticlesService {
   public getArticlesByField(): Observable<any>{
     return this.http.get(`http://localhost:8080/Article/group/byField`)
   }
-  // public getMapReduce(): Observable<any> {
-  //   return this.http.get(`http://localhost:8080/Article/mapreduce`)
-  // }
-  // public getNumberArticle(): Observable<any> {
-  //   return this.http.get(`http://localhost:8080/Article/numberArticle`)
-  // }
+  public getArticlesByPage( page: Number): Observable<any>{
+    return this.http.get(`http://localhost:8080/Article/page/` + page)
+  }
 
+  public getArticlesField( q: String): Observable<any>{
+    return this.http.get(`http://localhost:8080/Article/?q=` + q)
+  }
   
-  // public connect(): void {
-  
-  //   if (!this.socket$ || this.socket$.closed) {
-  //     this.socket$ = this.getNewWebSocket();
-  //     const messages = this.socket$.pipe(
-  //       tap({
-  //         error: error => console.log(error),
-  //       }), catchError(_ => EMPTY));
-  //     this.messagesSubject$.next(messages);
-  //     console.log(messages)
-  //   }
-  // }
-  
-  // private getNewWebSocket() {
-  //   return webSocket('ws://localhost:14000');
-  // }
-  // sendMessage(msg: any) {
-  //   this.socket$.next(msg);
-  // }
-  // close() {
-  //   this.socket$.complete(); }
-
- 
+  public listenForNewItem = () => {
+    return new Observable((observer) => {
+      this.connection.onmessage = (e) => {
+        console.log(e);
+        let t = e
+        observer.next(JSON.parse(e.data))
+      }
+      });
+  };
 
   
 
