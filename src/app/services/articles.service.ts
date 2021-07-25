@@ -84,10 +84,23 @@ export class ArticlesService {
   }
 
   public getArticlesByDate(day: any , month: any, year: any ): Observable<any>{
- 
-   ;
     return this.http.get(`http://localhost:8080/Article/bydate/`+ day +  `/` + month + `/` + year  )
   }
+
+
+  public deleteArticle(_id: String): Observable<any>{
+    var headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    if (localStorage.getItem("userToken")){
+     console.log("theres a token")
+     headers = headers.append('Authorization', `${localStorage.getItem("userToken")}` );
+    }
+    console.log(`Bearer ${localStorage.getItem("userToken")}` )
+    console.log( headers)
+
+      return this.http.delete(`http://localhost:8080/Article/` + _id , {"headers": headers});
+      
+    }
   
   
   public listenForNewItem = () => {

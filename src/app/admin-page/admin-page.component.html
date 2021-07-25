@@ -25,7 +25,7 @@
 
     
   <br/>
-
+<h1>Users:</h1>
 <mat-form-field appearance="outline" class="center">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
@@ -95,6 +95,7 @@
     </table>
   
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+    <app-article-table></app-article-table>
     <app-map [(markers)]="markers"></app-map>
   </div>
   
