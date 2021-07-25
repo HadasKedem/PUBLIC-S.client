@@ -5,7 +5,8 @@ import { User } from '../models/User.model';
 import { registerService } from './services/registerService';
 import { loginService } from '../login-page/services/loginService.service';
 import { Router } from '@angular/router';
-import data  from '../../assets/countries.json';
+import { Country } from '../models/Country.model';
+// import data  from '../../assets/countries.json';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -22,18 +23,26 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent  {
-  public countryList:{name:string, code:string}[] = data;
+  public countryList: Country[] = [];
   public register = this.formBuilder.group({
     email:'',
     password:'',
     firstName:'',
     lastName:'',
-    city:'',
+    country:'',
     isAdmin: false,
     isWriter: false,
   });
 
   constructor(private router: Router, private formBuilder: FormBuilder, private registerservice: registerService, private loginService: loginService) { }
+
+
+  ngOnInit(): void {
+    this.registerservice.getUsersCountries().subscribe(list => {
+      this.countryList = list
+      console.log(list)
+    }) 
+  }
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -48,7 +57,7 @@ export class RegisterPageComponent  {
     Validators.required
   ]);
 
-  cityFormControl = new FormControl('', [
+  countryFormControl = new FormControl('', [
     Validators.required
   ]);
 
@@ -60,6 +69,7 @@ export class RegisterPageComponent  {
 
   onSubmit(): void {
     let register:User = this.register.value as User;
+    console.log(register)
     if(register.email !="" && register.password!=""){
       this.registerservice.SaveRegistration(register, "").subscribe();
       //login the current user
