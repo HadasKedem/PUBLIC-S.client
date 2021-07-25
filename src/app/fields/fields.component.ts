@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EventEmitter, Input, Output} from '@angular/core'
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Article } from '../models/Article';
 import { ArticlesService } from '../services/articles.service';
@@ -14,6 +15,8 @@ export class FieldsComponent implements OnInit {
   public fields: String[] = ["Politics","Tech","Sports","World","Science","Economics","Health","Gossip","Opinions","Arts"]
   searchGen: String ="";
   searchQ!: String;
+  date = new Date(2000, 0, 2);
+
   // @Output() searchQChange = new EventEmitter();
   
   @Input() articles!: any[] ;
@@ -41,5 +44,20 @@ export class FieldsComponent implements OnInit {
           
     })
 
+  }
+
+  valueChanged(event: MatDatepickerInputEvent<Date>){
+    let date = {
+      "day":event.value?.getDate(),
+      "month": event.value?.getMonth(),
+      "year": event.value?.getFullYear()
+    }
+      console.log(date)
+      this.articleService.getArticlesByDate(event.value?.getDate(), event.value?.getMonth() , event.value?.getFullYear() ).subscribe(list => {
+        this.articles = list;
+            //this.articles.forEach(x => console.log(x))
+            this.articleChange.emit(this.articles);
+            
+      })
   }
 }

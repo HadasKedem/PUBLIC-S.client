@@ -1,11 +1,12 @@
 .center {
     margin: auto;
     padding: 10px;
-    margin-left: 10vw;
-    margin-right: 10vw;
+    margin-left: 0vw;
+    margin-right: 0vw;
+    margin-bottom: 2vh;
 }
 table {
-    width: 80%;
+    width: 100%;
   }
   
   .mat-form-field {
@@ -34,4 +35,8 @@ h1{
   
 .tableStats{
   padding-left: 10% !important;
+}
+
+.title{
+    width:100vw !important ;
 }
