@@ -48,7 +48,7 @@ export class UsersService {
       }
 
       public getUsersAverageCities(): Observable<any>{
-        return this.http.get(`http://localhost:8080/Users/q/differentCityCount`)
+        return this.http.get(`http://localhost:8080/Users/q/differentCountryCount`)
       }
 
       public getUsersCountries(): Observable<any>{
