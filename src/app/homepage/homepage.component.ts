@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Article } from '../models/Article';
 import { ArticlesService } from '../services/articles.service';
 
 @Component({
@@ -9,17 +8,13 @@ import { ArticlesService } from '../services/articles.service';
 })
 export class HomepageComponent implements OnInit {
   searchQ: String = "";
-
-  articles: any[] = [];
-  
+  articles: any[] = [];  
 
   constructor(private articleService:ArticlesService) {
     this.articleService.getArticlesByPage(0)
     .subscribe(list => {
         this.articles = list;
-        //this.articles.forEach(x => console.log(x))
     });
-    
    }
 
   ngOnInit(): void {
@@ -29,11 +24,8 @@ export class HomepageComponent implements OnInit {
     .subscribe((item: any) => {
        this.articles = [...this.articles, (item.value)];
       });
-      this.articleService.getArticles()
-  .subscribe(list => {
-      this.articles = list;
-      //this.articles.forEach(x => console.log(x))
-  });
+      this.articleService.getArticles().subscribe(list => {
+        this.articles = list;
+    });
   }
-
 }

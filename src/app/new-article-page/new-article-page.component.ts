@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticlesService} from '../services/articles.service';
-import {Article} from '../models/Article';
-import { loginService } from '../login-page/services/loginService.service';
+import { ArticlesService } from '../services/articles.service';
 
 @Component({
   selector: 'app-new-article-page',
@@ -38,9 +36,7 @@ export class NewArticlePageComponent implements OnInit {
     }else{
       console.log("not permitted")
     }
-   
-}
-
+  }
 
   ngOnInit(): void {
     if(localStorage.getItem("userToken")){
@@ -51,5 +47,4 @@ export class NewArticlePageComponent implements OnInit {
       console.log("not permitted")
     }
   }
-
 }

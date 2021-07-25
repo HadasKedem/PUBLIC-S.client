@@ -56,11 +56,9 @@ export class ToolbarComponent implements OnInit {
   
   
   public changeLoggedIn(): void {
-    //this.loggedIn = this.CheckIfLoggedin();
-}
+  }
 
   ngOnInit(): void {
-    //this.loggedIn = this.CheckIfLoggedin();
     if(!!localStorage.getItem('user')) {
       this.userName = JSON.parse(localStorage.getItem('user') || '{}').firstName;
       this.isUserWriter = JSON.parse(localStorage.getItem('user') || '{}').isWriter;
