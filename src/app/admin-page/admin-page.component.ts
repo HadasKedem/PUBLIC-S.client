@@ -12,7 +12,8 @@ import { UsersService } from '../services/users.service';
 
 export interface UserData {
   id: String |undefined;
-  name: String;
+  firstName: String;
+  lastName: String;
   email: String;
   writer: boolean;
   admin: boolean;
@@ -129,8 +130,10 @@ private drawChart(): void {
       })
 
      await this.usersService.getUsersAverageCities().subscribe(
-       num => 
+       num =>{ 
        this.averageCities = num.estimated
+       console.log(num)
+       }
      )
 
    await this.articleService.getArticlesByField().subscribe(articleObject => {
@@ -149,35 +152,32 @@ private drawChart(): void {
     usersT.forEach((user: User) => {
       this.users.push(  {
       id: user._id,
-      name: `${user.firstName} ${user.lastName}`,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       writer: user.isWriter,
       admin: user.isAdmin,
-      country: user.country
+      country: user.country,
     });
     });
     this.dataSource= new MatTableDataSource(this.users);
     this.getCountries()
-    console.log(this.dataSource)
 
    } )
 }
 
 public async getCountries(){
   this.users.forEach(async user => {
-    console.log(user)
 
     await this.usersService.getUserCountry(user.country).subscribe(
       country => {
-        console.log(country)
-        console.log(this.markers)
         this.markers.push({
           position: 
             { lat: country.latitude, lng: country.longitude },
           label: {
             text: country.country ,
           },
-          title: user.name ,
+          title: user.firstName + " " + user.lastName ,
         })
     })
   })
@@ -197,22 +197,42 @@ public async getCountries(){
   async onClickedDelete(id: string){
     console.log(id)
     await this.usersService.deleteUser(id).subscribe()
-    for(let i = 0; i < this.users.length; ++i){
-      if (this.users[i].id === id) {
+      for(let i = 0; i < this.users.length; ++i){
+        if (this.users[i].id === id) {
           this.users.splice(i,1);
-      }
-  }
-  this.dataSource = new MatTableDataSource(this.users);   
-  this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+        }
+    }
+      this.dataSource = new MatTableDataSource(this.users);   
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
   }
 
-  onClickedAdmin(){
-
+  async onClickedAdmin(id: String, user: any){
+    let tmp = {"isAdmin": !user.admin }
+    
+    await this.usersService.updateUser(id, tmp ).subscribe()
+      for(let i = 0; i < this.users.length; ++i){
+        if (this.users[i].id === user.id) {
+          this.users[i].admin = !user.admin;
+        }
+    }
+      this.dataSource = new MatTableDataSource(this.users);   
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
   }
   
-  onClickedWriter(){
-
+  async onClickedWriter(id: String, user: any){
+    let tmp = {"isWriter": !user.writer }
+    
+    await this.usersService.updateUser(id, tmp ).subscribe()
+      for(let i = 0; i < this.users.length; ++i){
+        if (this.users[i].id === user.id) {
+          this.users[i].writer = !user.writer;
+        }
+    }
+      this.dataSource = new MatTableDataSource(this.users);   
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
   }
 
 

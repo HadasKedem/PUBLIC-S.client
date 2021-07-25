@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class UsersService {
       
     }
 
-    public updateUser(_id: String): Observable<any>{
+    public updateUser(_id: String, field: {}): Observable<any>{
       var headers = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       if (localStorage.getItem("userToken")){
@@ -41,8 +42,8 @@ export class UsersService {
       }
       console.log(`Bearer ${localStorage.getItem("userToken")}` )
       console.log( headers)
-  
-        return this.http.put(`http://localhost:8080/Users/` + _id , {"headers": headers});
+        console.log(_id)
+        return this.http.put(`http://localhost:8080/Users/` + _id, field , {"headers": headers});
         
       }
 
