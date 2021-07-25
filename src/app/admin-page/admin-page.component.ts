@@ -16,7 +16,7 @@ export interface UserData {
   email: String;
   writer: boolean;
   admin: boolean;
-  city: String;
+  country: String;
 }
 
 /** Constants used to fill up our data base. */
@@ -37,7 +37,7 @@ const NAMES: string[] = [
 export class AdminPageComponent implements OnInit {
   public averageWords= 0;
   public averageCities= 0;
-
+  
   private users : UserData[] = [];
 
   private data = [
@@ -51,6 +51,7 @@ export class AdminPageComponent implements OnInit {
   private radius = Math.min(this.width, this.height) / 2 - this.margin;
   private colors: any;
   dataSource: MatTableDataSource<UserData>;
+  markers: any[] = []; 
 
 
   constructor(private articleService:ArticlesService, 
@@ -58,6 +59,15 @@ export class AdminPageComponent implements OnInit {
     ) {
       this.dataSource= new MatTableDataSource(this.users);
 
+      // this.markers.push({
+    
+      //   position: 
+      //     { lat: 1 , lng: 1 },
+      //   label: {
+      //     text: 'Marker label ' ,
+      //   },
+      //   title: 'Marker title ' ,
+      // })
     // Assign the data to the data source for the table to render
   }
   private createSvg(): void {
@@ -143,17 +153,38 @@ private drawChart(): void {
       email: user.email,
       writer: user.isWriter,
       admin: user.isAdmin,
-      city: user.city
+      country: user.country
     });
     });
     this.dataSource= new MatTableDataSource(this.users);
-
+    this.getCountries()
     console.log(this.dataSource)
 
    } )
 }
 
-  displayedColumns: string[] = [ 'name', 'email', 'city','writer', 'admin', 'delete'];
+public async getCountries(){
+  this.users.forEach(async user => {
+    console.log(user)
+
+    await this.usersService.getUserCountry(user.country).subscribe(
+      country => {
+        console.log(country)
+        console.log(this.markers)
+        this.markers.push({
+          position: 
+            { lat: country.latitude, lng: country.longitude },
+          label: {
+            text: country.country ,
+          },
+          title: user.name ,
+        })
+    })
+  })
+}
+
+
+  displayedColumns: string[] = [ 'name', 'email', 'writer', 'admin', 'delete'];
 
 
   @ViewChild(MatPaginator)

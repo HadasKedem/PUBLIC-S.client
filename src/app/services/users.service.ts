@@ -49,4 +49,11 @@ export class UsersService {
       public getUsersAverageCities(): Observable<any>{
         return this.http.get(`http://localhost:8080/Users/q/differentCityCount`)
       }
+
+      public getUsersCountries(): Observable<any>{
+        return this.http.get(`http://localhost:8080/Users/q/countries`)
+      }
+      public getUserCountry(_id: String): Observable<any>{
+        return this.http.get(`http://localhost:8080/countries/` + _id)
+      }
 }

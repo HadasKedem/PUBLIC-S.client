@@ -29,7 +29,7 @@ export class RegisterPageComponent  {
     password:'',
     firstName:'',
     lastName:'',
-    city:'',
+    country:'',
     isAdmin: false,
     isWriter: false,
   });
@@ -57,7 +57,7 @@ export class RegisterPageComponent  {
     Validators.required
   ]);
 
-  cityFormControl = new FormControl('', [
+  countryFormControl = new FormControl('', [
     Validators.required
   ]);
 
