@@ -1,30 +1,57 @@
-<table>
-  <th>
-    <mat-tab-group class="tabs" (selectedTabChange)="chooseField($event)">
-    <mat-tab *ngFor="let f of fields" label="{{f}}"  >{{f}}</mat-tab> 
-  <!-- <mat-tab label="Politics" (click)=chooseField(Politics)> Politics</mat-tab>
-  <mat-tab label="Tech"> Tech </mat-tab>
-  <mat-tab label="Sports"> Sports </mat-tab>
-  <mat-tab label="World">World  </mat-tab>
-  <mat-tab label="Science"> Science </mat-tab>
-  <mat-tab label="Economics">Economics  </mat-tab>
-  <mat-tab label="Health"> Health </mat-tab>
-  <mat-tab label="Gossip">  Gossip</mat-tab>
-  <mat-tab label="Opinions"> Opinions </mat-tab>
-  <mat-tab label="Arts">Arts  </mat-tab> -->
-</mat-tab-group>
-  </th>
-  <th>
-    <button mat-icon-button (click)="onClickedSearch()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" >
-  <mat-icon>search</mat-icon>
-</button>
-</th>
-<th>
-  <mat-form-field >
-    <input matInput  type="text" value="search" [(ngModel)]='searchGen'>
-  </mat-form-field>
-
-  </th>
+<!-- <table>
+  <tr>
+    <th>
+      <mat-tab-group class="tabs" (selectedTabChange)="chooseField($event)">
+      <mat-tab *ngFor="let f of fields" label="{{f}}"  >{{f}}</mat-tab> 
+      </mat-tab-group>
+    </th>
+    <th>
+      <button mat-icon-button (click)="onClickedSearch()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" >
+      <mat-icon>search</mat-icon>
+      </button>
+    </th>
+    <th>
+      <mat-form-field >
+      <input matInput  type="text" value="search" [(ngModel)]='searchGen'>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+    </th>
+  </tr>
+  <tr>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </td>
+  </tr>
 </table>
 
+ -->
+
+
+      <mat-tab-group class="tabs" (selectedTabChange)="chooseField($event)">
+      <mat-tab *ngFor="let f of fields" label="{{f}}"  >{{f}}</mat-tab> 
+      </mat-tab-group>
+
+      <button mat-icon-button (click)="onClickedSearch()" class="example-icon favorite-icon search" aria-label="Example icon-button with heart icon" >
+      <mat-icon>search</mat-icon>
+      </button>
+
+          <mat-form-field>
+          <input matInput  type="text" value="search" [(ngModel)]='searchGen'>
+          </mat-form-field>
+
+
+          <mat-form-field class="datepicker" appearance="outline">
+         <mat-label>Choose a date</mat-label>
+      <input matInput (dateChange)="valueChanged($event)" [matDatepicker]="picker" >
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
