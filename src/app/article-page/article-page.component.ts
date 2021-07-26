@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Article } from '../models/Article';
 import { ArticlesService } from '../services/articles.service';
-import { first } from 'rxjs/operators';
 import { UsersService } from '../services/users.service';
-
 
 @Component({
   selector: 'app-article-page',
@@ -35,13 +32,8 @@ export class ArticlePageComponent implements OnInit {
         // await this.articleService.getWriter(articleObject.)
         await this.userService.getUser(articleObject.writer).subscribe( user =>{
           this.writer = user.firstName + " " + user.lastName
-          console.log("got to getUser")
-        }
-
-        )
+        })
       }
-    });
-
-    
+    });    
   }
 }

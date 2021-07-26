@@ -18,6 +18,5 @@ export class WriterGuard implements CanActivate {
       return false;
     }
     return true;
-  }
-  
+  }  
 }

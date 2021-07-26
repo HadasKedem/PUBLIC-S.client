@@ -1,14 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import * as d3 from 'd3';
-import { Country } from '../models/Country.model';
 import { User } from '../models/User.model';
 import { ArticlesService} from '../services/articles.service';
 import { UsersService } from '../services/users.service';
-
-
 
 export interface UserData {
   id: String |undefined;
@@ -19,16 +16,10 @@ export interface UserData {
   admin: boolean;
   country: String;
 }
-
-/** Constants used to fill up our data base. */
-// const FRUITS: string[] = [
-//   'blueberry', 'lychee', 'kiwi', 'mango', 'peach', 'lime', 'pomegranate', 'pineapple'
-// ];
 const NAMES: string[] = [
   'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
   'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
 ];
-
 
 @Component({
   selector: 'app-admin-page',
@@ -54,22 +45,10 @@ export class AdminPageComponent implements OnInit {
   dataSource: MatTableDataSource<UserData>;
   markers: any[] = []; 
 
-
   constructor(private articleService:ArticlesService, 
     private usersService: UsersService,
     ) {
       this.dataSource= new MatTableDataSource(this.users);
-
-      // this.markers.push({
-    
-      //   position: 
-      //     { lat: 1 , lng: 1 },
-      //   label: {
-      //     text: 'Marker label ' ,
-      //   },
-      //   title: 'Marker title ' ,
-      // })
-    // Assign the data to the data source for the table to render
   }
   private createSvg(): void {
     this.svg = d3.select("figure#pieGroupBy")
@@ -125,14 +104,13 @@ private drawChart(): void {
 }
 
    async ngOnInit() {
-    await this.articleService.getArticlesAverageWord().subscribe(num => 
-      {this.averageWords = num.average
+    await this.articleService.getArticlesAverageWord().subscribe(num => {
+      this.averageWords = num.average
       })
 
      await this.usersService.getUsersAverageCities().subscribe(
        num =>{ 
        this.averageCities = num.estimated
-       console.log(num)
        }
      )
 
@@ -183,19 +161,14 @@ public async getCountries(){
   })
 }
 
-
   displayedColumns: string[] = [ 'name', 'email', 'writer', 'admin', 'delete'];
-
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-
-
   async onClickedDelete(id: string){
-    console.log(id)
     await this.usersService.deleteUser(id).subscribe()
       for(let i = 0; i < this.users.length; ++i){
         if (this.users[i].id === id) {
@@ -248,10 +221,5 @@ public async getCountries(){
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-
-
- 
+  } 
 }
-
-

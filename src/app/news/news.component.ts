@@ -22,13 +22,8 @@ export class NewsComponent implements OnInit {
   constructor( private breakingNewsService:BreakingNewsService) { }
 
   async ngOnInit(): Promise<void> {
-
-  await this.breakingNewsService.getBreakingNewsByPage(0).subscribe(
-    updatesNew => 
-    {this.updates = updatesNew
-      console.log(this.updates)
-    }
-  )
+    await this.breakingNewsService.getBreakingNewsByPage(0).subscribe(updatesNew => {
+      this.updates = updatesNew
+    })
   }
-
 }
