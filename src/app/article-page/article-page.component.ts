@@ -32,6 +32,8 @@ export class ArticlePageComponent implements OnInit {
      await this.articleService.getArticle(_id).subscribe(async articleObject => {
       if (articleObject) {
         this.currArticle = articleObject;
+        this.currArticle.firstName = articleObject.writer.firstName
+        this.currArticle.lastName = articleObject.writer.lastName
         // await this.articleService.getWriter(articleObject.)
         await this.userService.getUser(articleObject.writer).subscribe( user =>{
           this.writer = user.firstName + " " + user.lastName
