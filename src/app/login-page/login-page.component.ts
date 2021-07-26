@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Injectable, Output } from '@angular/core';
-import {FormBuilder, FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { loginService } from './services/loginService.service';
 import { Router } from '@angular/router';
 

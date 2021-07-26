@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { User } from '../models/User.model';
 import { registerService } from './services/registerService';
 import { loginService } from '../login-page/services/loginService.service';
 import { Router } from '@angular/router';
 import { Country } from '../models/Country.model';
-// import data  from '../../assets/countries.json';
-
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -36,11 +34,9 @@ export class RegisterPageComponent  {
 
   constructor(private router: Router, private formBuilder: FormBuilder, private registerservice: registerService, private loginService: loginService) { }
 
-
   ngOnInit(): void {
     this.registerservice.getUsersCountries().subscribe(list => {
       this.countryList = list
-      console.log(list)
     }) 
   }
 
@@ -69,7 +65,6 @@ export class RegisterPageComponent  {
 
   onSubmit(): void {
     let register:User = this.register.value as User;
-    console.log(register)
     if(register.email !="" && register.password!=""){
       this.registerservice.SaveRegistration(register, "").subscribe();
       //login the current user

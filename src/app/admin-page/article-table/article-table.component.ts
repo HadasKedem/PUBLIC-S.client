@@ -10,7 +10,6 @@ export interface articleData {
   title: String;
 }
 
-
 @Component({
   selector: 'app-article-table',
   templateUrl: './article-table.component.html',
@@ -23,22 +22,20 @@ export class ArticleTableComponent implements OnInit {
 
   constructor( private articleService:ArticlesService) { 
     this.dataSource= new MatTableDataSource(this.articles);
-
   }
 
   async ngOnInit(): Promise<void> {
     await this.articleService.getArticles().subscribe(
       usersT =>{
       usersT.forEach((a: Article) => {
-        this.articles.push(  {
-        id: a._id,
-        title: a.title
+        this.articles.push({
+          id: a._id,
+          title: a.title
+        });
       });
-      });
-      this.dataSource= new MatTableDataSource(this.articles);
-  
-     } )
-
+      this.dataSource= new MatTableDataSource(this.articles);  
+     }
+    )
   }
   
   @ViewChild(MatPaginator)
@@ -47,7 +44,6 @@ export class ArticleTableComponent implements OnInit {
   sort!: MatSort;
 
   async onClickedDelete(id: string){
-    console.log(id)
     await this.articleService.deleteArticle(id).subscribe()
       for(let i = 0; i < this.articles.length; ++i){
         if (this.articles[i].id === id) {
@@ -72,6 +68,4 @@ export class ArticleTableComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-
 }

@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EventEmitter, Input, Output} from '@angular/core'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Article } from '../models/Article';
 import { ArticlesService } from '../services/articles.service';
 
 @Component({
@@ -16,8 +15,6 @@ export class FieldsComponent implements OnInit {
   searchGen: String ="";
   searchQ!: String;
   date = new Date(2000, 0, 2);
-
-  // @Output() searchQChange = new EventEmitter();
   
   @Input() articles!: any[] ;
   @Output() articleChange = new EventEmitter();
@@ -32,18 +29,14 @@ export class FieldsComponent implements OnInit {
 
   public chooseField(e: MatTabChangeEvent){
     this.searchQ = e.tab.textLabel;
-    // this.articleService.getArticlesField(`{"field": "${this.searchQ}"}`).subscribe(list => {
       this.search(this.searchQ);
   }
 
   public search(q : String){
- this.articleService.getArticlesField(q).subscribe(list => {
+    this.articleService.getArticlesField(q).subscribe(list => {
       this.articles = list;
-          //this.articles.forEach(x => console.log(x))
           this.articleChange.emit(this.articles);
-          
     })
-
   }
 
   valueChanged(event: MatDatepickerInputEvent<Date>){
@@ -52,12 +45,9 @@ export class FieldsComponent implements OnInit {
       "month": event.value?.getMonth(),
       "year": event.value?.getFullYear()
     }
-      console.log(date)
       this.articleService.getArticlesByDate(event.value?.getDate(), event.value?.getMonth() , event.value?.getFullYear() ).subscribe(list => {
         this.articles = list;
-            //this.articles.forEach(x => console.log(x))
             this.articleChange.emit(this.articles);
-            
       })
   }
 }
